@@ -49,7 +49,7 @@ export default class Modal {
     document.onkeydown = (event) => {
       if (event.code === "Escape") {
        this.close();
-        
+        document.onkeydown = null;
       }
     };
   }
