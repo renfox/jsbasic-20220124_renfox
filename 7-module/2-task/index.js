@@ -4,7 +4,7 @@ export default class Modal {
   constructor() {
     
    this.render();
-    this.close();
+   
   }
   render() {
     this.elem = createElement(`
@@ -21,6 +21,13 @@ export default class Modal {
         </div>
       </div>
     `);
+    this.elem.querySelector('.modal__close').addEventListener('click', (event) => {
+      this.close();
+      });
+      
+        
+      this.closeKeyDown();
+      
 }
   
     open() {
@@ -33,10 +40,18 @@ export default class Modal {
   setBody(node) {
     this.elem.querySelector('.modal__body').innerHTML = node.outerHTML;
   }
-  close() {
-    this.elem.querySelector('.modal__close').addEventListener('click', function() {
-      document.body.classList.remove('is-modal-open');
-      document.querySelector('.modal').remove();
-    });
+  close() {    
+    document.body.classList.remove('is-modal-open');    
+    this.elem.remove(); 
   }
+// скрытие при нажатии кнопки ESC
+  closeKeyDown(event) {
+    document.onkeydown = (event) => {
+      if (event.code === "Escape") {
+       this.close();
+        
+      }
+    };
+  }
+  
 }
